@@ -37,9 +37,10 @@ func run(ctx context.Context, l net.Listener) error {
 
 	// 別ゴルーチンでHTTPサーバを起動する
 	eg.Go(func() error {
-		// http.ErrServerClosedは
-		// http.Server.Shutdown()が正常に終了したことを示すので異常ではない
+		// ListenAndServeメソッドではなく、Serveメソッドに変更する
 		if err := s.Serve(l); err != nil &&
+			// http.ErrServerClosedは
+			// http.Server.Shutdown()が正常に終了したことを示すので異常ではない
 			err != http.ErrServerClosed {
 			log.Printf("failed to close: %+v", err)
 			return err
