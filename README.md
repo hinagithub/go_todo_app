@@ -12,9 +12,9 @@ go run . 18000
 ``` 
 
 ```
-curl localhost:18080/test
+curl localhost:18000/health
 
-> Hello, test!
+> {"status": "ok"}
 ```
 
 # Docker
