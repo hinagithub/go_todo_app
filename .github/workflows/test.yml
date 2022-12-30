@@ -4,6 +4,10 @@ on:
     branches:
       - main
   pull_request:
+#    paths:
+#      - "!**.go"
+#      - .github/workflows/golangci.yml
+#      - "!**/README.md"
 name: test
 jobs:
   test:
