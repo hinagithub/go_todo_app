@@ -1,0 +1,24 @@
+# 各項目を解説してくれている記事:
+# https://zenn.dev/sanpo_shiho/books/61bc1e1a30bf27/viewer/642fe9
+
+linters-settings:
+  govet:
+    check-shadowing: false
+  gocyclo:
+    min-complexity: 30
+  misspell:
+    locale: US
+  linters:
+    disable-all: true
+enable:
+  - goimports # import文のフォーマットエラー?と未使用パッケージを報告
+  - deadcode # 未使用の関数や変数を報告
+  - errcheck # エラーの戻り値が確認されていない際に報告(panicではなく戻り値で呼び出し元に知らせるべきところ)
+  - gocognit # Cognitive Complexity というコードの理解しやすさを測る指標で数値が高い(わかりにくいとされる)箇所を指摘
+  - gocritic # 細かいいろんなチェックを報告
+  - gocyclo # 循環的複雑度(対象の関数やメソッドがどれだけ複雑さを持っているかを表す数値)が高い(無駄な条件分岐などが多い)ものを報告
+  - gofmt # go fmt(Goのフォーマット)がちゃんとかけられているかを報告
+  - govet # いろんなチェック結果(ビルドは通せるが懸念が残る問題、例えばstructの非効率な並びなど)を報告。
+  - misspell # スペルミスを報告
+  - staticcheck # いろんなチェック結果を報告(正しさ、シンプルさ、メンテ容易さなど)
+  - whitespace # 関数やif, forなどの最初や最後に不要な改行があれば報告
