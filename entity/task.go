@@ -1,6 +1,8 @@
 package entity
 
-import "time"
+import (
+	"time"
+)
 
 type TaskID int64
 type TaskStatus string
@@ -12,12 +14,27 @@ const (
 )
 
 type Task struct {
-	ID      TaskID     `json:"id"`
-	Title   string     `json:"title"`
-	Status  TaskStatus `json:"status"`
-	Created time.Time  `json:"created"`
+	ID       TaskID     `json:"id"`
+	Title    string     `json:"title"`
+	Status   TaskStatus `json:"status"`
+	Created  time.Time  `json:"created"`
+	Modified time.Time  `json:"modified" db:"modified"`
 }
+
 type Tasks []*Task
+
+// func (r *Repository) ListTasks(
+// 	ctx context.Context, db *sqlx.DB,
+// ) (entity.Tasks, error) {
+// 	tasks := entity.Task{}
+// 	sql := `SELECT
+// 	id, user_id, title, status, created, modified
+// 	FROM tasks;`
+// 	if err := db.SelectContext(ctx, &tasks, sql); err != nil {
+// 		return nil, err
+// 	}
+// 	return tasks, nil
+// }
 
 func main() {
 	var id int = 1
