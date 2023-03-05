@@ -10,8 +10,10 @@ import (
 	"github.com/hinagithub/go_todo_app.git/clock"
 	"github.com/hinagithub/go_todo_app.git/config"
 	"github.com/hinagithub/go_todo_app.git/handler"
+	"github.com/hinagithub/go_todo_app.git/service"
 	"github.com/hinagithub/go_todo_app.git/store"
 )
+
 func NewMux(ctx context.Context, cfg *config.Config) (http.Handler, func(), error) {
 	fmt.Println("コンフィグ@NewMux: ", cfg)
 	mux := chi.NewRouter()
@@ -25,9 +27,14 @@ func NewMux(ctx context.Context, cfg *config.Config) (http.Handler, func(), erro
 		return nil, cleanup, err
 	}
 	r := store.Repository{Clocker: clock.RealClocker{}}
-	at := &handler.AddTask{DB: db, Repo: &r, Validator: v}
+	at := &handler.AddTask{
+		Service:   &service.AddTask{DB: db, Repo: &r},
+		Validator: v,
+	}
 	mux.Post("/tasks", at.ServeHTTP)
-	lt := &handler.ListTask{DB: db, Repo: &r}
+	lt := &handler.ListTask{
+		Service: &service.ListTask{DB: db, Repo: &r},
+	}
 	mux.Get("/tasks", lt.ServeHTTP)
 	return mux, cleanup, nil
 }
