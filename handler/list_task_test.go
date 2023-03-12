@@ -40,6 +40,10 @@ func TestListTask(t *testing.T) {
 		},
 		"empty": {
 			tasks: []*entity.Task{},
+			want: want{
+				status:  http.StatusOK,
+				rspFile: "testdata/list_task/empty_rsp.json.golden",
+			},
 		},
 	}
 	for n, tt := range tests {
