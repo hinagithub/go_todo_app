@@ -1,13 +1,8 @@
-# Github Actionsでテストカバレッジを保存するための設定
 on:
   push:
     branches:
-      - chapter_18
+      - "main"
   pull_request:
-#    paths:
-#      - "!**.go"
-#      - .github/workflows/golangci.yml
-#      - "!**/README.md"
 name: test
 jobs:
   test:
@@ -15,11 +10,7 @@ jobs:
     services:
       mysql:
         image: mysql:8
-        options: >-
-          --health-cmd "mysqladmin ping -h localhost"
-          --health-interval 20s
-          --health-timeout 10s
-          --health-retries 10
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         ports:
           - 3306:3306
         env:
